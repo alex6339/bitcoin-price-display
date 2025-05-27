@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实时比特币价格</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .price-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .price-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .currency-label {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+        .last-update {
+            color: #95a5a6;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="price-card">
+                    <h2 class="mb-4">实时比特币价格</h2>
+                    <div class="mb-4">
+                        <span class="currency-label">USD:</span>
+                        <span id="usd-price" class="price-value">$0.00</span>
+                    </div>
+                    <div>
+                        <span class="currency-label">CNY:</span>
+                        <span id="cny-price" class="price-value">¥0.00</span>
+                    </div>
+                    <div class="last-update mt-3">
+                        最后更新: <span id="last-update">未更新</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updatePrices() {
+            fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,cny')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('usd-price').textContent = `$${data.bitcoin.usd.toFixed(2)}`;
+                    document.getElementById('cny-price').textContent = `¥${data.bitcoin.cny.toFixed(2)}`;
+                    document.getElementById('last-update').textContent = new Date().toLocaleString();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // 更新价格
+        updatePrices();
+        // 每30秒自动更新一次
+        setInterval(updatePrices, 30000);
+    </script>
+</body>
+</html>

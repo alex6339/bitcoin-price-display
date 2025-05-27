@@ -1,0 +1,23 @@
+.price-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.price-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.currency-label {
+    color: #7f8c8d;
+    font-size: 1.2rem;
+}
+
+.last-update {
+    color: #95a5a6;
+    font-size: 0.9rem;
+}
